@@ -1,0 +1,361 @@
+import type { Metadata } from "next";
+import { BUSINESS_INFO } from "@/lib/businessInfo";
+
+export const metadata: Metadata = {
+  title: "Contact SR Energy | Get a Free Solar Quote",
+  description:
+    "Reach out to SR Energy — call, email, or fill out our contact form. Our team responds within one business day. Clean energy starts with a conversation.",
+  alternates: {
+    canonical: "https://srenergy.us/contact/",
+  },
+};
+
+export default function ContactPage() {
+  return (
+    <main className="min-h-screen bg-white text-gray-900">
+
+      {/* ── HERO ── */}
+      <section className="bg-gray-900 px-4 py-14 text-white sm:py-18">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-green-600/20 px-3 py-1 text-xs font-semibold text-green-400 ring-1 ring-inset ring-green-500/30">
+            {/* leaf icon */}
+            <svg
+              className="h-3.5 w-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M11 20A7 7 0 0 1 4 13H2a9 9 0 0 0 9 9v-2Z" />
+              <path d="M16.44 4.07A10 10 0 0 1 20 12c0 5.52-4.48 10-10 10" />
+              <path d="M2 2s3.45 3.45 5 8c.55 1.62.83 3.3.83 5" />
+            </svg>
+            We&apos;re Here to Help
+          </span>
+
+          <h1 className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl">
+            Contact SR Energy
+          </h1>
+
+          <p className="mt-4 text-base text-gray-400 sm:text-lg">
+            Questions about solar, roofing, or battery storage? Our team is
+            ready to help. Reach out and we&apos;ll get back to you within one
+            business day.
+          </p>
+        </div>
+      </section>
+
+      {/* ── CONTACT CARDS ── */}
+      <section className="px-4 py-10">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid gap-5 sm:grid-cols-3">
+
+            {/* Phone */}
+            <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-green-600">
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </div>
+              <h2 className="mt-4 text-xl font-bold sm:text-2xl">Call Us</h2>
+              <p className="mt-1 text-sm text-gray-600">
+                Speak directly with our solar specialists.
+              </p>
+              <a
+                href={BUSINESS_INFO.phoneTel}
+                className="mt-4 text-lg font-semibold text-green-600 hover:text-green-500 transition-colors"
+              >
+                {BUSINESS_INFO.phone}
+              </a>
+              <p className="mt-2 text-xs text-gray-500">
+                Mon–Fri 10 AM–6 PM · Sat 10 AM–2 PM (MT)
+              </p>
+            </div>
+
+            {/* Email */}
+            <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-green-600">
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </div>
+              <h2 className="mt-4 text-xl font-bold sm:text-2xl">Email Us</h2>
+              <p className="mt-1 text-sm text-gray-600">
+                Send us a message anytime — we respond fast.
+              </p>
+              <a
+                href={BUSINESS_INFO.emailHref}
+                className="mt-4 break-all text-sm font-semibold text-green-600 hover:text-green-500 transition-colors"
+              >
+                {BUSINESS_INFO.email}
+              </a>
+              <p className="mt-2 text-xs text-gray-500">
+                We respond within 1 business day.
+              </p>
+            </div>
+
+            {/* Response time */}
+            <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-green-600">
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+              <h2 className="mt-4 text-xl font-bold sm:text-2xl">Hours</h2>
+              <p className="mt-1 text-sm text-gray-600">
+                We&apos;re available when you need us most.
+              </p>
+              <ul className="mt-4 space-y-1 text-sm text-gray-700">
+                <li className="flex justify-between gap-2">
+                  <span className="font-medium">Mon–Fri</span>
+                  <span className="text-gray-500">10:00 AM – 6:00 PM</span>
+                </li>
+                <li className="flex justify-between gap-2">
+                  <span className="font-medium">Saturday</span>
+                  <span className="text-gray-500">10:00 AM – 2:00 PM</span>
+                </li>
+                <li className="flex justify-between gap-2">
+                  <span className="font-medium">Sunday</span>
+                  <span className="text-gray-500">Closed</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONTACT FORM ── */}
+      <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-8 text-center">
+            <h2 className="text-xl font-bold sm:text-2xl">Send Us a Message</h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Fill out the form below and our team will reach out within one business day.
+            </p>
+          </div>
+
+          <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8">
+            <form className="space-y-5">
+
+              {/* Name + Phone */}
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="mb-1.5 block text-sm font-semibold text-gray-700"
+                  >
+                    Full Name <span className="text-green-600">*</span>
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    required
+                    placeholder="Jane Smith"
+                    className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="mb-1.5 block text-sm font-semibold text-gray-700"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    placeholder="(555) 000-0000"
+                    className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-1.5 block text-sm font-semibold text-gray-700"
+                >
+                  Email Address <span className="text-green-600">*</span>
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  placeholder="jane@example.com"
+                  className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                />
+              </div>
+
+              {/* Subject */}
+              <div>
+                <label
+                  htmlFor="subject"
+                  className="mb-1.5 block text-sm font-semibold text-gray-700"
+                >
+                  Subject <span className="text-green-600">*</span>
+                </label>
+                <select
+                  id="subject"
+                  required
+                  defaultValue=""
+                  className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                >
+                  <option value="" disabled>
+                    Select a subject
+                  </option>
+                  <option>Residential Solar</option>
+                  <option>Commercial Solar</option>
+                  <option>Battery Storage</option>
+                  <option>Roofing</option>
+                  <option>Maintenance &amp; Support</option>
+                  <option>General Inquiry</option>
+                </select>
+              </div>
+
+              {/* Message */}
+              <div>
+                <label
+                  htmlFor="message"
+                  className="mb-1.5 block text-sm font-semibold text-gray-700"
+                >
+                  Message <span className="text-green-600">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  required
+                  rows={5}
+                  placeholder="Tell us about your project or question…"
+                  className="w-full resize-y rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                />
+              </div>
+
+              {/* SMS Consent */}
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+                <label className="flex cursor-pointer items-start gap-3 text-xs text-gray-600 leading-relaxed">
+                  <input
+                    type="checkbox"
+                    required
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-green-500"
+                  />
+                  <span>
+                    I consent to receive SMS notifications and alerts from SR Energy.
+                    Message frequency varies. Message and data rates may apply. Reply{" "}
+                    <strong>STOP</strong> to unsubscribe or <strong>HELP</strong> for
+                    assistance. You can also call{" "}
+                    <a href={BUSINESS_INFO.phoneTel} className="text-green-600 hover:underline font-medium">
+                      {BUSINESS_INFO.phone}
+                    </a>
+                    .{" "}
+                    <a href="/privacy-policy/" className="text-green-600 hover:underline font-medium">
+                      Privacy Policy
+                    </a>{" "}
+                    &amp;{" "}
+                    <a href="/terms-of-service/" className="text-green-600 hover:underline font-medium">
+                      Terms of Service
+                    </a>
+                    .
+                  </span>
+                </label>
+              </div>
+
+              {/* Marketing consent */}
+              <div>
+                <label className="flex cursor-pointer items-start gap-3 text-xs text-gray-500 leading-relaxed">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-green-500"
+                  />
+                  <span>
+                    I agree to receive occasional marketing messages from SR Energy.
+                  </span>
+                </label>
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-green-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+              >
+                Send Message
+              </button>
+
+              <p className="text-center text-xs text-gray-400">
+                By submitting you agree to our{" "}
+                <a href="/privacy-policy/" className="text-green-600 hover:underline">
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a href="/terms-of-service/" className="text-green-600 hover:underline">
+                  Terms of Service
+                </a>
+                .
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOTTOM CTA ── */}
+      <section className="bg-gray-900 px-4 py-14 text-center text-white">
+        <div className="mx-auto max-w-xl">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-green-600/20 px-3 py-1 text-xs font-semibold text-green-400 ring-1 ring-inset ring-green-500/30">
+            Free Consultation
+          </span>
+          <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
+            Ready to Go Solar?
+          </h2>
+          <p className="mt-3 text-gray-400">
+            Join thousands of homeowners saving on energy. Call us today for your
+            free no-obligation quote.
+          </p>
+          <a
+            href={BUSINESS_INFO.phoneTel}
+            className="mt-8 inline-block rounded-lg bg-green-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+          >
+            Call {BUSINESS_INFO.phone}
+          </a>
+          <p className="mt-4 text-sm text-gray-500">
+            Or email us at{" "}
+            <a
+              href={BUSINESS_INFO.emailHref}
+              className="text-green-400 hover:text-green-300 transition-colors"
+            >
+              {BUSINESS_INFO.email}
+            </a>
+          </p>
+        </div>
+      </section>
+
+    </main>
+  );
+}
