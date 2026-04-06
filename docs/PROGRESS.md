@@ -1,8 +1,8 @@
 # SR Energy — Project Progress
 
 ## Completed
-**SEO build finalized: 2026-04-05 | Last updated: 2026-04-05**
-All items below were completed and verified with a clean `npm run build` (0 errors, 182 static pages).
+**SEO build finalized: 2026-04-05 | Last updated: 2026-04-06**
+All items below were completed and verified with a clean `npm run build` (0 errors, 183 static pages).
 
 ---
 
@@ -121,11 +121,24 @@ All items below were completed and verified with a clean `npm run build` (0 erro
 
 ---
 
+## Session — 2026-04-06
+
+- [x] Completed S9 — Performance Optimization (ISR, deferred FaqAccordion, performance.md)
+- [x] Completed S10 — NAP Consistency (businessInfo.ts, tel: links on all location CTAs, directory-listings.md, DEPLOYMENT.md)
+- [x] Created `app/contact/page.tsx` — hero, contact cards, form with SMS consent, bottom CTA
+- [x] Updated `lib/businessInfo.ts` — added `phoneTel`, `emailHref`, `hours`; set real phone `(385) 535-5433`
+- [x] Added `/contact/` to `app/sitemap.ts` with priority 0.8
+- [x] Confirmed production domain `srenergy.us` — updated `BASE_URL` in `app/sitemap.ts`
+- [x] Committed all work to git — commit `06ba839` (push pending credentials)
+- [x] Build clean: 0 errors, 183 static pages
+
+---
+
 ## Next Up
 
 - [x] Replace placeholder phone number in `lib/businessInfo.ts` with real number before launch
 - [x] Complete S9 — ISR, deferred component loading, next/image, Lighthouse benchmarking, performance budget doc
-- [ ] Verify production domain — confirm if `srenergy.com` or `srenergy.us` and update `BASE_URL` in `app/sitemap.ts` if needed
+- [x] Verify production domain — confirmed `srenergy.us`; updated `BASE_URL` in `app/sitemap.ts` and canonical in `app/contact/page.tsx`
 - [ ] Submit sitemap to Google Search Console after deploy
 - [ ] Work through `docs/directory-listings.md` and submit to all 13 directories
 - [ ] Deploy to Vercel following `DEPLOYMENT.md`
