@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BUSINESS_INFO } from '@/lib/businessInfo';
@@ -54,8 +55,21 @@ export default function HomePageClient() {
           backgroundPosition: "center",
         }}
       >
+        {/* Watermark logo */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+          filter: 'drop-shadow(0 2px 4px rgba(255,255,255,0.15)) drop-shadow(0 -1px 2px rgba(0,0,0,0.8)) brightness(0) invert(0)',
+          opacity: 0.18,
+        }}>
+          <Image src="/images/logo.png" width={1040} height={1040} alt="" aria-hidden="true" style={{ objectFit: 'contain', mixBlendMode: 'overlay' }} />
+        </div>
 
-        <div className="relative mx-auto max-w-3xl text-center">
+        <div className="relative mx-auto max-w-3xl text-center" style={{ position: 'relative', zIndex: 10 }}>
           <motion.div
             className="mb-3 flex justify-center"
             variants={fadeUp}
