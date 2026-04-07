@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
+import Image from "next/image";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -34,13 +35,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
       >
-        <header className="sticky top-0 z-50 bg-gray-900 shadow-sm">
+        <header className="sticky top-0 z-50 bg-[#1e2333] shadow-sm">
           <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between">
-            <Link
-              href="/"
-              className="text-sm font-semibold tracking-wide text-white hover:text-green-400 transition-colors"
-            >
-              SR Energy
+            <Link href="/" aria-label="SR Energy home">
+              <Image
+                src="/images/logo.png"
+                width={140}
+                height={60}
+                alt="SR Energy"
+                priority
+              />
             </Link>
             <nav className="flex items-center gap-6">
               <Link
@@ -50,8 +54,8 @@ export default function RootLayout({
                 Locations
               </Link>
               <Link
-                href="/get-quote"
-                className="rounded-lg bg-green-500 px-4 py-1.5 text-sm font-semibold text-white hover:bg-green-400 transition-colors"
+                href="/contact/"
+                className="rounded-lg bg-[#F0A500] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[#fbb82a] transition-colors"
               >
                 Free Quote
               </Link>
