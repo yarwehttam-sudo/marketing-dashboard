@@ -49,8 +49,9 @@ export default function HomePageClient() {
       <section
         className="relative px-4 py-14 text-white sm:py-20"
         style={{
-          background: `#1e2333 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zm0-2l26-15V18L28 2 2 18v31l26 15z' fill='none' stroke='%23F0A500' stroke-opacity='0.15' stroke-width='1'/%3E%3C/svg%3E")`,
-          backgroundSize: '56px 100px',
+          backgroundImage: "url('/images/honeycomb.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
 
