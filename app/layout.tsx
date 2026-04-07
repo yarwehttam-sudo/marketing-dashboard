@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
+import Image from "next/image";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -36,8 +37,14 @@ export default function RootLayout({
       >
         <header className="sticky top-0 z-50 bg-[#1e2333] shadow-sm">
           <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between">
-            <Link href="/" className="text-[#F0A500] font-bold text-xl tracking-widest">
-              SR Energy
+            <Link href="/" aria-label="SR Energy home">
+              <Image
+                src="/images/logo.png"
+                width={120}
+                height={52}
+                alt="SR Energy"
+                style={{ objectFit: 'contain' }}
+              />
             </Link>
             <nav className="flex items-center gap-6">
               <Link
