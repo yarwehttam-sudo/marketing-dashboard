@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { BUSINESS_INFO } from '@/lib/businessInfo';
 import SavingsCalculator from '@/app/components/SavingsCalculator';
 
+// Build: force-redeploy-v2
+
 // ---------------------------------------------------------------------------
 // Animation variants
 // ---------------------------------------------------------------------------
