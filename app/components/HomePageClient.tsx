@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BUSINESS_INFO } from '@/lib/businessInfo';
@@ -56,11 +55,6 @@ export default function HomePageClient() {
         <div className="absolute inset-0 bg-[#1e2333]/80" aria-hidden="true" />
 
         <div className="relative mx-auto max-w-3xl text-center">
-          {/* Logo — no entrance animation so it feels like the brand anchor */}
-          <div className="mb-6 flex justify-center">
-            <Image src="/images/logo.png" width={180} height={80} alt="SR Energy" priority />
-          </div>
-
           <motion.div
             className="mb-3 flex justify-center"
             variants={fadeUp}
@@ -80,7 +74,7 @@ export default function HomePageClient() {
             animate="visible"
             transition={{ delay: 0, duration: 0.6, ease: 'easeOut' }}
           >
-            No-Credit-Check Solar for Your Home
+            Say &ldquo;YES&rdquo; to Solar!
           </motion.h1>
 
           <motion.p
