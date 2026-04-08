@@ -50,3 +50,14 @@ body {
   animation: slowRotate 120s linear infinite;
   transform-origin: center center;
 }
+
+@keyframes logoPulse {
+  0%   { filter: grayscale(1) brightness(0.6) drop-shadow(0 0 0px rgba(240,165,0,0)); }
+  85%  { filter: grayscale(1) brightness(0.6) drop-shadow(0 0 0px rgba(240,165,0,0)); }
+  92%  { filter: grayscale(0) brightness(1.3) drop-shadow(0 0 12px rgba(240,165,0,0.9)) sepia(1) saturate(3) hue-rotate(5deg); }
+  100% { filter: grayscale(1) brightness(0.6) drop-shadow(0 0 0px rgba(240,165,0,0)); }
+}
+
+.logo-pulse {
+  animation: logoPulse 4s ease-in-out infinite;
+}

@@ -36,9 +36,16 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
       >
         <header className="sticky top-0 z-50 bg-[#1e2333] shadow-sm">
-          <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between">
+          <div className="mx-auto max-w-5xl px-4 py-2 sm:px-6 lg:px-8 flex items-center justify-between">
             <Link href="/">
-              <Image src="/images/logo.png" width={100} height={44} alt="SR Energy" style={{ objectFit: 'contain' }} />
+              <Image
+                src="/images/BlackSRE.png"
+                width={100}
+                height={44}
+                alt="SR Energy"
+                className="logo-pulse"
+                style={{ objectFit: 'contain' }}
+              />
             </Link>
             <nav className="flex items-center gap-6">
               <Link

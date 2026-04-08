@@ -129,10 +129,10 @@ export default function HomePageClient() {
       </div>
 
       {/* ── Why SR Energy ── */}
-      <section className="px-4 py-14">
+      <section className="bg-[#1e2333] px-4 py-14">
         <div className="mx-auto max-w-5xl">
           <motion.h2
-            className="mb-8 text-center text-2xl font-bold text-gray-900 sm:text-3xl"
+            className="mb-8 text-center text-2xl font-bold text-white sm:text-3xl"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -148,40 +148,40 @@ export default function HomePageClient() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm">
               <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
                 </svg>
               </span>
-              <h3 className="text-base font-bold text-gray-900">No Credit Check Required</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+              <h3 className="text-base font-bold text-white">No Credit Check Required</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-400">
                 We never pull your FICO score. Every homeowner deserves access to clean energy
                 savings regardless of credit history.
               </p>
             </motion.li>
 
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm">
               <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
               </span>
-              <h3 className="text-base font-bold text-gray-900">13 Years Experience</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+              <h3 className="text-base font-bold text-white">13 Years Experience</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-400">
                 Over a decade of residential solar installations means we know how to get your
                 system permitted, installed, and producing power as fast as possible.
               </p>
             </motion.li>
 
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm">
               <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                 </svg>
               </span>
-              <h3 className="text-base font-bold text-gray-900">Tier 1 Equipment</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+              <h3 className="text-base font-bold text-white">Tier 1 Equipment</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-400">
                 We only install industry-leading Tier 1 solar panels, certified home batteries,
                 and Level 2 EV chargers — equipment built to last 25+ years.
               </p>
