@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { BUSINESS_INFO } from '@/lib/businessInfo';
 import SavingsCalculator from '@/app/components/SavingsCalculator';
 import HoneycombHero from '@/app/components/HoneycombHero';
+import ProductCards from '@/app/components/ProductCards';
 
 // Build: force-redeploy-v2
 
@@ -189,6 +190,9 @@ export default function HomePageClient() {
           </motion.ul>
         </div>
       </section>
+
+      {/* ── Product Cards ── */}
+      <ProductCards />
 
       {/* ── Savings Calculator ── */}
       <motion.div
