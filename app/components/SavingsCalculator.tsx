@@ -57,13 +57,13 @@ const STATE_RATES: Record<string, { rate: number; avgBill: number }> = {
   "District of Columbia": { rate: 17.71, avgBill: 113.23 },
 };
 
+const EV_COST = 110;
+
 export default function SavingsCalculator() {
   const [selectedState, setSelectedState] = useState('');
-  const [monthlyBill, setMonthlyBill] = useState(150);
-
-  const annualSavings = monthlyBill * 12 * 0.85;
-  const twentyFiveYearSavings = annualSavings * 25;
-  const paybackYears = (25000 / annualSavings).toFixed(1);
+  const [baseBill, setBaseBill] = useState(150);
+  const [withBattery, setWithBattery] = useState(false);
+  const [withEv, setWithEv] = useState(false);
 
   const fmt = (n: number) =>
     n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
@@ -71,9 +71,40 @@ export default function SavingsCalculator() {
   function handleStateChange(state: string) {
     setSelectedState(state);
     if (state && STATE_RATES[state]) {
-      setMonthlyBill(Math.round(STATE_RATES[state].avgBill));
+      setBaseBill(Math.round(STATE_RATES[state].avgBill));
     }
   }
+
+  // Effective bill includes EV charging cost
+  const monthlyBill = baseBill + (withEv ? EV_COST : 0);
+
+  // Solar reduces bill to 15% remaining; battery drops it further to 5%
+  const residualFraction = withBattery ? 0.05 : 0.15;
+  const withSolar = Math.round(monthlyBill * residualFraction);
+  const annualSavings = (monthlyBill - withSolar) * 12;
+  const savings25yr = annualSavings * 25;
+
+  // System cost for payback
+  const systemCost = 25000 + (withBattery ? 5000 : 0) + (withEv ? 3000 : 0);
+  const paybackYears = (systemCost / annualSavings).toFixed(1);
+
+  // CTA label
+  let ctaLabel = 'Get My Solar Quote →';
+  if (withBattery && withEv) ctaLabel = 'Get My Complete Energy Package Quote →';
+  else if (withBattery) ctaLabel = 'Get My Solar + Battery Quote →';
+  else if (withEv) ctaLabel = 'Get My Solar + EV Quote →';
+
+  const toggleBtn = (active: boolean) =>
+    active
+      ? 'bg-[#F0A500] text-[#1e2333] font-bold rounded-xl px-4 py-3 text-sm transition-colors'
+      : 'bg-[#111827] text-gray-400 border border-[#F0A500]/30 rounded-xl px-4 py-3 text-sm transition-colors hover:border-[#F0A500]/60';
+
+  const tableRows = [
+    { label: 'Monthly Bill',    without: fmt(monthlyBill),       withPkg: fmt(withSolar),       highlight: false },
+    { label: 'Annual Cost',     without: fmt(monthlyBill * 12),  withPkg: fmt(withSolar * 12),  highlight: false },
+    { label: '25-Year Cost',    without: fmt(monthlyBill*12*25), withPkg: fmt(withSolar*12*25), highlight: false },
+    { label: 'You Save (25yr)', without: '—',                    withPkg: fmt(savings25yr),     highlight: true  },
+  ];
 
   return (
     <section className="px-4 py-14">
@@ -82,12 +113,12 @@ export default function SavingsCalculator() {
           How Much Could You Save With Solar?
         </h2>
         <p className="mb-8 text-center text-sm text-gray-500">
-          Select your state and drag the slider to match your average monthly electric bill.
+          Select your state, choose your products, and drag the slider to see your personalised savings.
         </p>
 
-        <div className="rounded-2xl bg-[#1e2333] px-8 py-10 shadow-xl">
+        <div className="rounded-2xl bg-[#1e2333] px-6 py-8 shadow-xl sm:px-10 sm:py-10">
 
-          {/* State selector */}
+          {/* ── Section 1: State selector ── */}
           <div className="mb-6">
             <label htmlFor="state-select" className="mb-2 block text-sm font-medium text-gray-300">
               Select Your State
@@ -110,7 +141,66 @@ export default function SavingsCalculator() {
             )}
           </div>
 
-          {/* Slider */}
+          {/* ── Section 2: Product toggles ── */}
+          <div className="mb-6">
+            <p className="mb-3 text-sm font-medium text-gray-300">Build Your Package</p>
+            <div className="grid grid-cols-3 gap-2">
+              {/* Solar — always on */}
+              <button
+                type="button"
+                disabled
+                className={toggleBtn(true)}
+                aria-pressed="true"
+              >
+                ☀️ Solar Panels
+              </button>
+
+              {/* Battery toggle */}
+              <button
+                type="button"
+                onClick={() => setWithBattery((v) => !v)}
+                className={toggleBtn(withBattery)}
+                aria-pressed={withBattery}
+              >
+                🔋 Add Battery
+              </button>
+
+              {/* EV toggle */}
+              <button
+                type="button"
+                onClick={() => setWithEv((v) => !v)}
+                className={toggleBtn(withEv)}
+                aria-pressed={withEv}
+              >
+                ⚡ Add EV Charger
+              </button>
+            </div>
+          </div>
+
+          {/* ── Section 3: Education callouts ── */}
+          {withBattery && (
+            <div className="mb-4 rounded-xl border border-[#F0A500]/30 bg-[#111827] p-4">
+              <p className="mb-1 font-semibold text-white text-sm">🔋 How a Home Battery Works</p>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                Solar panels only produce power when the sun shines. Without a battery you still buy
+                electricity from the grid at night. A home battery stores excess solar energy and uses
+                it at night — reducing your grid dependence by an additional 15–20%. During outages
+                your home stays powered.
+              </p>
+            </div>
+          )}
+          {withEv && (
+            <div className="mb-4 rounded-xl border border-[#F0A500]/30 bg-[#111827] p-4">
+              <p className="mb-1 font-semibold text-white text-sm">⚡ How EV Charging Affects Your Bill</p>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                Adding a Level 2 EV charger typically adds $80–$150/month to your electric bill and
+                can push you into a higher utility rate tier — making ALL your electricity more
+                expensive. With solar your car essentially runs on sunlight.
+              </p>
+            </div>
+          )}
+
+          {/* ── Section 4: Slider ── */}
           <div className="mb-8">
             <div className="mb-3 flex items-center justify-between">
               <label htmlFor="bill-slider" className="text-sm font-medium text-gray-300">
@@ -124,52 +214,70 @@ export default function SavingsCalculator() {
               id="bill-slider"
               type="range"
               min={50}
-              max={500}
+              max={600}
               step={5}
-              value={monthlyBill}
-              onChange={(e) => setMonthlyBill(Number(e.target.value))}
+              value={baseBill}
+              onChange={(e) => setBaseBill(Number(e.target.value))}
               className="w-full cursor-pointer accent-[#F0A500]"
             />
             <div className="mt-1 flex justify-between text-xs text-gray-500">
               <span>$50</span>
-              <span>$500</span>
+              <span>$600</span>
             </div>
+            {withEv && (
+              <p className="mt-2 text-xs text-[#F0A500]/80">
+                + ${EV_COST} EV charging cost added
+              </p>
+            )}
           </div>
 
-          {/* Results */}
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div className="rounded-xl border border-[#F0A500]/30 bg-white/5 p-5 text-center">
-              <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
-                Est. Annual Savings
-              </p>
-              <p className="mt-2 text-2xl font-bold text-[#F0A500]">{fmt(annualSavings)}</p>
+          {/* ── Section 5: Before / after comparison table ── */}
+          <div className="overflow-hidden rounded-xl border border-[#F0A500]/20">
+            {/* Header */}
+            <div className="grid grid-cols-3 bg-[#1e2333] px-4 py-2.5 text-xs font-medium text-gray-400">
+              <span></span>
+              <span className="text-center">Without Solar</span>
+              <span className="text-center text-[#F0A500]">With Your Package</span>
             </div>
-            <div className="rounded-xl border border-[#F0A500]/30 bg-white/5 p-5 text-center">
-              <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
-                25-Year Savings
-              </p>
-              <p className="mt-2 text-2xl font-bold text-[#F0A500]">{fmt(twentyFiveYearSavings)}</p>
-            </div>
-            <div className="rounded-xl border border-[#F0A500]/30 bg-white/5 p-5 text-center">
-              <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
-                Avg Payback Period
-              </p>
-              <p className="mt-2 text-2xl font-bold text-[#F0A500]">{paybackYears} yrs</p>
-            </div>
+
+            {/* Rows */}
+            {tableRows.map(({ label, without, withPkg, highlight }, i) => (
+              <div
+                key={label}
+                className={`grid grid-cols-3 px-4 py-3 text-sm ${
+                  i % 2 === 0 ? 'bg-[#111827]' : 'bg-[#1e2333]'
+                }`}
+              >
+                <span className={highlight ? 'font-bold text-[#F0A500]' : 'text-gray-400'}>
+                  {label}
+                </span>
+                <span className={`text-center ${highlight ? 'text-gray-500' : 'text-gray-300'}`}>
+                  {without}
+                </span>
+                <span className={`text-center font-bold ${highlight ? 'text-[#F0A500] text-lg' : 'text-white'}`}>
+                  {withPkg}
+                </span>
+              </div>
+            ))}
           </div>
 
-          <p className="mt-4 text-center text-xs text-gray-500">
-            Estimates based on 85% bill offset. Actual savings vary by location, usage, and system size.
+          <p className="mt-2 text-xs text-gray-500">
+            Estimated payback period:{' '}
+            <span className="text-gray-400">{paybackYears} years</span>
           </p>
 
-          <div className="mt-8 text-center">
-            <Link
-              href="/contact/"
-              className="inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
-            >
-              Get My Exact Quote →
-            </Link>
-          </div>
+          <p className="mt-1 text-xs text-gray-600">
+            Estimates based on {withBattery ? '95%' : '85%'} bill offset. Actual savings vary by location, usage, and system size.
+          </p>
+
+          {/* ── Section 6: Smart CTA ── */}
+          <Link
+            href="/contact/"
+            className="mt-4 block w-full rounded-lg bg-[#F0A500] py-3 text-center text-base font-bold text-[#1e2333] shadow hover:bg-[#fbb82a] transition-colors"
+          >
+            {ctaLabel}
+          </Link>
+
         </div>
       </div>
     </section>
