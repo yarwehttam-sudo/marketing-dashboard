@@ -88,9 +88,7 @@ export default function HomePageClient() {
             animate="visible"
             transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
           >
-            SR Energy helps homeowners upgrade to solar panels, home batteries, and EV chargers —
-            no FICO score needed, no obligation, just honest answers from a family-first company
-            with 13 years of experience.
+            SR Energy helps homeowners upgrade to solar panels, home batteries, and EV chargers.
           </motion.p>
 
           <motion.div
