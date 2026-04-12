@@ -146,7 +146,7 @@ export default function HomePageClient() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            SR Energy serves homeowners across multiple states with equipment and service you can trust.
+            No shortcuts. No gimmicks. Just honest work and equipment that lasts.
           </motion.p>
 
           <motion.ul
@@ -156,7 +156,7 @@ export default function HomePageClient() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
               <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
@@ -169,7 +169,7 @@ export default function HomePageClient() {
               </p>
             </motion.li>
 
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
               <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -182,7 +182,7 @@ export default function HomePageClient() {
               </p>
             </motion.li>
 
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
               <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
@@ -234,8 +234,7 @@ export default function HomePageClient() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            SR Energy serves homeowners in 30+ states. Browse our service areas to see local
-            pricing, incentives, and certified installers near you.
+            See local pricing, incentives, and certified installers in your area.
           </motion.p>
 
           <motion.ul
@@ -245,7 +244,7 @@ export default function HomePageClient() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
               <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
@@ -257,7 +256,7 @@ export default function HomePageClient() {
               </span>
             </motion.li>
 
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
               <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M3.75 18h15A2.25 2.25 0 0 0 21 15.75v-6a2.25 2.25 0 0 0-2.25-2.25h-15A2.25 2.25 0 0 0 1.5 9.75v6A2.25 2.25 0 0 0 3.75 18Z" />
@@ -269,7 +268,7 @@ export default function HomePageClient() {
               </span>
             </motion.li>
 
-            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+            <motion.li variants={fadeUp} className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
               <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-[#F0A500]">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
