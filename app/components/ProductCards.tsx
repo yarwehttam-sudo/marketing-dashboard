@@ -361,7 +361,7 @@ export default function ProductCards() {
       <style>{SCENE_CSS}</style>
       <div className="mx-auto max-w-5xl">
         <h2 className="text-white text-3xl font-bold text-center mb-2">Our Products</h2>
-        <p className="text-gray-400 text-center mb-8">Click any product to learn more</p>
+        <p className="text-gray-400 text-center mb-8">Click any product to learn how it works and why it saves you money.</p>
 
         <div className="grid gap-4 sm:grid-cols-3">
 
@@ -371,7 +371,7 @@ export default function ProductCards() {
             onToggle={() => toggle('solar')}
             icon={<SunIcon />}
             name="Solar Panels"
-            teaser="Reduce your bill by up to 85%"
+            teaser="Reduce your electric bill by up to 85%"
             scene={<SolarScene />}
             educationTitle="How Solar Works"
             educationBody={

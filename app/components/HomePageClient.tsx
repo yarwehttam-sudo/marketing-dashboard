@@ -78,7 +78,7 @@ export default function HomePageClient() {
             animate="visible"
             transition={{ delay: 0, duration: 0.6, ease: 'easeOut' }}
           >
-            Say &ldquo;YES&rdquo; to Solar!
+            Discover What a Home Energy Upgrade Can Do
           </motion.h1>
 
           <motion.p
@@ -88,9 +88,9 @@ export default function HomePageClient() {
             animate="visible"
             transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
           >
-            SR Energy serves homeowners across multiple states with Tier 1 solar panels, home
-            batteries, and EV chargers — no FICO score needed, no obligation, just honest answers
-            from a family-first company with 13 years of experience.
+            SR Energy helps homeowners upgrade to solar panels, home batteries, and EV chargers —
+            no FICO score needed, no obligation, just honest answers from a family-first company
+            with 13 years of experience.
           </motion.p>
 
           <motion.div
@@ -113,28 +113,27 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── Testimonial ticker strip ── */}
-      <div className="overflow-hidden border-y border-[#F0A500]/20 bg-[#1e2333] py-4">
-        <div className="ticker-track" aria-hidden="true">
-          {tickerItems.map((t, i) => (
-            <div
-              key={i}
-              className="mx-6 flex shrink-0 items-center gap-3 whitespace-nowrap"
-            >
-              <span className="text-[#F0A500]">★</span>
-              <span className="text-sm font-medium text-white">{t.name}:</span>
-              <span className="text-sm text-gray-300">{t.text}</span>
-              <span className="ml-6 text-[#F0A500]/30">|</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ── Savings Calculator ── */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <SavingsCalculator />
+      </motion.div>
+
+      {/* ── Product Cards ── */}
+      <ProductCards />
+
+      {/* ── How It Works ── */}
+      <HowItWorks />
 
       {/* ── Why SR Energy ── */}
       <section className="bg-[#1e2333] px-4 py-14">
         <div className="mx-auto max-w-5xl">
           <motion.h2
-            className="mb-8 text-center text-2xl font-bold text-white sm:text-3xl"
+            className="mb-3 text-center text-2xl font-bold text-white sm:text-3xl"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -142,6 +141,15 @@ export default function HomePageClient() {
           >
             Why SR Energy?
           </motion.h2>
+          <motion.p
+            className="mb-8 text-center text-base text-gray-400"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            SR Energy serves homeowners across multiple states with equipment and service you can trust.
+          </motion.p>
 
           <motion.ul
             className="grid gap-6 sm:grid-cols-3"
@@ -192,21 +200,22 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── Product Cards ── */}
-      <ProductCards />
-
-      {/* ── How It Works ── */}
-      <HowItWorks />
-
-      {/* ── Savings Calculator ── */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <SavingsCalculator />
-      </motion.div>
+      {/* ── Testimonial ticker strip ── */}
+      <div className="overflow-hidden border-y border-[#F0A500]/20 bg-[#1e2333] py-4">
+        <div className="ticker-track" aria-hidden="true">
+          {tickerItems.map((t, i) => (
+            <div
+              key={i}
+              className="mx-6 flex shrink-0 items-center gap-3 whitespace-nowrap"
+            >
+              <span className="text-[#F0A500]">★</span>
+              <span className="text-sm font-medium text-white">{t.name}:</span>
+              <span className="text-sm text-gray-300">{t.text}</span>
+              <span className="ml-6 text-[#F0A500]/30">|</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* ── Services ── */}
       <section className="border-t border-gray-100 bg-gray-50 px-4 py-14">
@@ -218,7 +227,7 @@ export default function HomePageClient() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            Find Solar in Your City
+            Find Energy Upgrades in Your City
           </motion.h2>
           <motion.p
             className="mb-8 text-base text-gray-600"
@@ -302,7 +311,7 @@ export default function HomePageClient() {
       >
         <div className="mx-auto max-w-xl">
           <h2 className="text-2xl font-bold sm:text-3xl">
-            Ready to go solar with no credit check?
+            Ready to upgrade your home?
           </h2>
           <p className="mt-3 text-gray-300">
             Get a free, no-obligation quote from a certified SR Energy installer in your area.

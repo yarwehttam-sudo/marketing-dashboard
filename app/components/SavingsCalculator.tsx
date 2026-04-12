@@ -110,10 +110,10 @@ export default function SavingsCalculator() {
     <section className="px-4 py-14">
       <div className="mx-auto max-w-3xl">
         <h2 className="mb-2 text-center text-2xl font-bold text-gray-900 sm:text-3xl">
-          How Much Could You Save With Solar?
+          How Much Could You Save?
         </h2>
         <p className="mb-8 text-center text-sm text-gray-500">
-          Select your state, choose your products, and drag the slider to see your personalised savings.
+          Try our home energy savings calculator. Select your state, choose your products, and drag the slider to see your personalized savings.
         </p>
 
         <div className="rounded-2xl bg-[#1e2333] px-6 py-8 shadow-xl sm:px-10 sm:py-10">
