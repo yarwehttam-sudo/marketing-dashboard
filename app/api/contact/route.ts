@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     `;
 
     const { error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'SR Energy <noreply@srenergy.us>',
       to: 'JoinUs@SREnergy.US',
       subject: `New Lead from SR Energy Website - ${name}`,
       html,
