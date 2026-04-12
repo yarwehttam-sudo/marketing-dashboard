@@ -28,12 +28,9 @@ const steps = [
 export default function HowItWorks() {
   return (
     <section className="bg-[#1e2333] py-16 px-4">
-      <h2 className="text-white text-3xl font-bold text-center mb-2">
+      <h2 className="text-white text-3xl font-bold text-center mb-12">
         How It Works
       </h2>
-      <p className="text-gray-400 text-center mb-12">
-        Going solar with SR Energy is simple — no credit check, no pressure, no surprises
-      </p>
 
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-start justify-center gap-6 md:gap-0">
         {steps.map((step, index) => (
