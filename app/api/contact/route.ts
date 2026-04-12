@@ -64,10 +64,10 @@ export async function POST(req: NextRequest) {
     });
 
     if (!notionRes.ok) {
-      const errBody = await notionRes.json().catch(() => ({}));
-      console.error('Notion API error:', errBody);
+      const notionError = await notionRes.json().catch(() => ({}));
+      console.error('Notion API error:', JSON.stringify(notionError, null, 2));
       return NextResponse.json(
-        { error: 'Failed to save your request. Please try again.' },
+        { error: notionError.message || JSON.stringify(notionError) },
         { status: 500 },
       );
     }
