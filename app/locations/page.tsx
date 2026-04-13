@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { STATES } from '@/lib/locations';
 import { BUSINESS_INFO } from '@/lib/businessInfo';
+import USMapHero from '@/components/USMapHero';
+import CollapsibleStatesGrid from '@/components/CollapsibleStatesGrid';
 
 const HUB_TITLE = 'Solar Installation Locations | SR Energy';
 const HUB_DESCRIPTION =
@@ -69,7 +71,7 @@ export default function LocationsPage() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
-              href="/get-quote"
+              href="/contact"
               className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] focus:outline-none focus:ring-2 focus:ring-[#F0A500] focus:ring-offset-2 focus:ring-offset-[#1e2333] transition-colors"
             >
               Get Your Free Quote
@@ -82,6 +84,9 @@ export default function LocationsPage() {
             </Link>
           </div>
         </div>
+
+        {/* ── Interactive US Map ── */}
+        <USMapHero />
       </section>
 
       {/* Trust Bar */}
@@ -113,7 +118,7 @@ export default function LocationsPage() {
               </p>
             </div>
             <Link
-              href="/products/texas-vpp"
+              href="/locations/texas/houston/texas-vpp"
               className="shrink-0 rounded-lg bg-[#d4920a] px-6 py-3 text-center text-sm font-semibold text-white shadow hover:bg-[#F0A500] transition-colors"
             >
               Check Eligibility
@@ -122,54 +127,15 @@ export default function LocationsPage() {
         </div>
       </section>
 
-      {/* States Grid */}
-      <section className="px-4 pb-12 pt-4">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="mb-3 text-center text-2xl font-bold text-gray-900">
-            Browse Locations by State
-          </h2>
-          <p className="mb-8 text-center text-gray-600">
-            SR Energy currently serves homeowners in 30 states across the US. Select your state below
-            to see which cities we cover and request a free, no-credit-check solar quote from a
-            certified local installer.
-          </p>
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {STATES.map((state) => (
-              <li key={state.abbr}>
-                <Link
-                  href={`/locations/${state.slug}/`}
-                  className="group relative flex flex-col items-start rounded-xl border border-gray-200 bg-white px-4 py-4 shadow-sm transition-all hover:border-[#F0A500]/30 hover:shadow-md"
-                >
-                  {/* Abbreviation badge */}
-                  <span
-                    className={`mb-2 inline-flex h-9 w-9 items-center justify-center rounded-md text-sm font-bold ${
-                      state.isVppEligible
-                        ? 'bg-[#d4920a] text-white'
-                        : 'bg-gray-100 text-gray-700 group-hover:bg-[#F0A500]/10 group-hover:text-[#F0A500]'
-                    }`}
-                  >
-                    {state.abbr}
-                  </span>
-
-                  <span className="text-sm font-semibold text-gray-900 leading-tight">
-                    {state.name}
-                  </span>
-
-                  {state.isVppEligible && (
-                    <span className="mt-1.5 inline-block rounded-full bg-[#F0A500]/10 px-2 py-0.5 text-xs font-medium text-[#F0A500]">
-                      VPP Eligible
-                    </span>
-                  )}
-
-                  <span className="mt-2 text-xs text-[#F0A500] group-hover:underline">
-                    View Locations →
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* Collapsible States Grid */}
+      <CollapsibleStatesGrid
+        states={STATES.map((s) => ({
+          abbr: s.abbr,
+          name: s.name,
+          slug: s.slug,
+          isVppEligible: s.isVppEligible,
+        }))}
+      />
 
       {/* Don't see your city */}
       <section className="border-t border-gray-100 bg-[#111827] px-4 py-10 text-center">
@@ -205,7 +171,7 @@ export default function LocationsPage() {
             No credit check. No pressure. Just a free, personalized quote for your home.
           </p>
           <Link
-            href="/get-quote"
+            href="/contact"
             className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
           >
             Get Your Free Quote
