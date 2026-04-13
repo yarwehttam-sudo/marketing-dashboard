@@ -181,7 +181,7 @@ export default function USMapHero() {
           import('topojson-client'),
         ]);
 
-        const feats = (topojson as { feature: Function }).feature(us, us.objects.states).features;
+        const feats = (topojson as { feature: (topology: object, object: object) => { features: { id: string | number }[] } }).feature(us, us.objects.states).features;
         const projection = geoAlbersUsa().fitSize([960, 600], {
           type: 'FeatureCollection',
           features: feats,
