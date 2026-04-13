@@ -1,90 +1,113 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+// app/api/contact/route.ts
+import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
-// Notion config kept for later use
-// const NOTION_API_KEY = process.env.NOTION_API_KEY;
-// const DATABASE_ID = 'a254df33-d6e3-487e-9fc1-ebc6f5059900';
+const NOTION_DATABASE_ID = "410f33a7-f6c2-402d-849f-8b085c6110e6";
+const NOTION_API_KEY = process.env.NOTION_API_KEY;
+const NOTION_VERSION = "2022-06-28";
 
-export async function POST(req: NextRequest) {
-  try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
+interface ContactFormData {
+  name: string;
+  phone?: string;
+  email: string;
+  message?: string;
+  state?: string;
+  monthlyBill?: number | string;
+  productInterest?: string[];
+}
 
-    const { name, phone, email, message, state, monthlyBill, productInterest } =
-      await req.json();
+async function createNotionLead(data: ContactFormData) {
+  const productOptions = (data.productInterest ?? [])
+    .filter((p) => ["Solar Panels", "Home Battery", "EV Charger"].includes(p))
+    .map((name) => ({ name }));
 
-    if (!name || !email) {
-      return NextResponse.json(
-        { error: 'Name and email are required.' },
-        { status: 400 },
-      );
-    }
+  const billNumber =
+    typeof data.monthlyBill === "number"
+      ? data.monthlyBill
+      : data.monthlyBill
+        ? parseFloat(String(data.monthlyBill).replace(/[^0-9.]/g, ""))
+        : undefined;
 
-    const productList =
-      Array.isArray(productInterest) && productInterest.length > 0
-        ? productInterest.join(', ')
-        : '—';
+  const properties: Record<string, unknown> = {
+    "Contact Name": { title: [{ text: { content: data.name } }] },
+    Email: { email: data.email },
+    Phone: { phone_number: data.phone || null },
+    Notes: { rich_text: [{ text: { content: data.message || "" } }] },
+    State: { rich_text: [{ text: { content: data.state || "" } }] },
+    "Lead Source": { select: { name: "Website" } },
+    "Pipeline Stage": { select: { name: "New Lead" } },
+    Priority: { select: { name: "Warm" } },
+  };
 
-    const html = `
-      <h2 style="margin-bottom:16px;font-family:sans-serif;">New Lead — SR Energy Website</h2>
-      <table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;width:100%;max-width:560px;">
-        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;width:180px;">Name</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${name}</td></tr>
-        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">Phone</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${phone || '—'}</td></tr>
-        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">Email</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${email}</td></tr>
-        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">State</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${state || '—'}</td></tr>
-        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">Monthly Electric Bill</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${monthlyBill ? `$${monthlyBill}` : '—'}</td></tr>
-        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">Product Interest</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${productList}</td></tr>
-        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;vertical-align:top;">Message</td><td style="padding:8px 12px;border-bottom:1px solid #eee;white-space:pre-wrap;">${message || '—'}</td></tr>
-      </table>
-    `;
-
-    const { error } = await resend.emails.send({
-      from: 'SR Energy <noreply@srenergy.us>',
-      to: 'JoinUs@SREnergy.US',
-      subject: `New Lead from SR Energy Website - ${name}`,
-      html,
-    });
-
-    if (error) {
-      console.error('Resend error:', JSON.stringify(error, null, 2));
-      return NextResponse.json(
-        { error: error.message || JSON.stringify(error) },
-        { status: 500 },
-      );
-    }
-
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('Contact route error:', err);
-    return NextResponse.json(
-      { error: 'Something went wrong. Please try again.' },
-      { status: 500 },
-    );
+  if (billNumber && !isNaN(billNumber)) {
+    properties["Monthly Electric Bill"] = { number: billNumber };
   }
 
-  // ── Notion integration (commented out — fix separately) ──────────────────
-  //
-  // console.log('Notion response status:', notionRes.status);
-  // const responseText = await notionRes.text();
-  // console.log('Notion response body:', responseText);
-  //
-  // if (!notionRes.ok) {
-  //   const notionError = (() => { try { return JSON.parse(responseText); } catch { return {}; } })();
-  //   console.error('Notion API error:', JSON.stringify(notionError, null, 2));
-  //   return NextResponse.json(
-  //     { error: notionError.message || JSON.stringify(notionError) },
-  //     { status: 500 },
-  //   );
-  // }
-  //
-  // Properties mapping:
-  // 'Contact Name': { title: [{ text: { content: name } }] },
-  // 'Email': { email },
-  // 'Phone': { phone_number: phone },
-  // 'Notes': { rich_text: [{ text: { content: message } }] },
-  // 'State': { rich_text: [{ text: { content: state } }] },
-  // 'Monthly Electric Bill': { number: Number(monthlyBill) },
-  // 'Product Interest': { multi_select: productInterest.map((p) => ({ name: p })) },
-  // 'Lead Source': { select: { name: 'Website' } },
-  // 'Pipeline Stage': { select: { name: 'New Lead' } },
-  // 'Priority': { select: { name: 'Warm' } },
+  if (productOptions.length > 0) {
+    properties["Product Interest"] = { multi_select: productOptions };
+  }
+
+  const response = await fetch("https://api.notion.com/v1/pages", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${NOTION_API_KEY}`,
+      "Content-Type": "application/json",
+      "Notion-Version": NOTION_VERSION,
+    },
+    body: JSON.stringify({ parent: { database_id: NOTION_DATABASE_ID }, properties }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    console.error("Notion API error:", JSON.stringify(error, null, 2));
+    throw new Error(`Notion API error: ${error.message || response.statusText}`);
+  }
+
+  return response.json();
+}
+
+export async function POST(request: Request) {
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const body: ContactFormData = await request.json();
+
+    if (!body.name || !body.email) {
+      return NextResponse.json({ error: "Name and email are required." }, { status: 400 });
+    }
+
+    const emailResult = await resend.emails.send({
+      from: "SR Energy Website <noreply@srenergy.us>",
+      to: ["JoinUs@SREnergy.US"],
+      subject: `New Lead: ${body.name}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${body.name}</p>
+        <p><strong>Email:</strong> ${body.email}</p>
+        <p><strong>Phone:</strong> ${body.phone || "N/A"}</p>
+        <p><strong>State:</strong> ${body.state || "N/A"}</p>
+        <p><strong>Monthly Electric Bill:</strong> ${body.monthlyBill || "N/A"}</p>
+        <p><strong>Product Interest:</strong> ${body.productInterest?.join(", ") || "N/A"}</p>
+        <hr />
+        <p><strong>Message:</strong></p>
+        <p>${body.message || "No message provided."}</p>
+      `,
+    });
+
+    let notionResult;
+    try {
+      notionResult = await createNotionLead(body);
+    } catch (notionError) {
+      console.error("Failed to create Notion lead:", notionError);
+      return NextResponse.json({ success: true, warning: "Lead saved via email but Notion sync failed." });
+    }
+
+    return NextResponse.json({
+      success: true,
+      emailId: emailResult.data?.id,
+      notionPageId: notionResult?.id,
+    });
+  } catch (error) {
+    console.error("Contact form error:", error);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
+  }
 }
