@@ -77,7 +77,7 @@ export default function LocationsPage() {
               Get Your Free Quote
             </Link>
             <Link
-              href="/contact"
+              href="/how-it-works"
               className="rounded-lg border border-gray-500 px-7 py-3 text-base font-semibold text-gray-200 hover:border-gray-300 hover:text-white transition-colors"
             >
               How It Works
