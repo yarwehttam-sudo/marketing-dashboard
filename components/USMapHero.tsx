@@ -182,7 +182,11 @@ export default function USMapHero() {
         ]);
 
         const feats = (topojson as { feature: (topology: object, object: object) => { features: { id: string | number }[] } }).feature(us, us.objects.states).features;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const projection = geoAlbersUsa().fitSize([960, 600], {
+          type: 'FeatureCollection',
+          features: feats,
+        } as any);
           type: 'FeatureCollection',
           features: feats,
         });
