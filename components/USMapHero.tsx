@@ -187,7 +187,6 @@ export default function USMapHero() {
           type: 'FeatureCollection',
           features: feats,
         } as any);
-        /* eslint-enable @typescript-eslint/no-explicit-any */
         const pathGen = geoPath().projection(projection);
 
         const stateEls: { el: SVGPathElement; cx: number; cy: number }[] = [];
