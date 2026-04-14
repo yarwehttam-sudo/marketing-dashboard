@@ -293,7 +293,7 @@ export default async function TexasVppCityPage({
 
             <div className="mt-8">
               <Link
-                href={`/get-quote?product=texas-vpp&state=TX&city=${citySlug}`}
+                href={`/contact?product=texas-vpp&state=TX&city=${citySlug}`}
                 className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
               >
                 Check My {c.name} VPP Eligibility →
@@ -446,7 +446,7 @@ export default async function TexasVppCityPage({
               $0 cost · 20-year warranty · No credit check · Keep it forever.
             </p>
             <Link
-              href={`/get-quote?product=texas-vpp&state=TX&city=${citySlug}`}
+              href={`/contact?product=texas-vpp&state=TX&city=${citySlug}`}
               className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
               Check My {c.name} VPP Eligibility →
