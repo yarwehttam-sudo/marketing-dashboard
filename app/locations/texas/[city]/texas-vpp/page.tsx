@@ -291,21 +291,6 @@ export default async function TexasVppCityPage({
               )}
             </div>
 
-            <div className="mt-8">
-              <Link
-                href={`/contact?product=texas-vpp&state=TX&city=${citySlug}`}
-                className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
-              >
-                Check My {c.name} VPP Eligibility →
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Intro */}
-        <section className="px-4 py-10">
-          <div className="mx-auto max-w-3xl">
-            <p className="text-base leading-relaxed text-gray-700">{buildIntro(c.name)}</p>
           </div>
         </section>
 
@@ -316,6 +301,13 @@ export default async function TexasVppCityPage({
               Check If Your ZIP Code Qualifies
             </h2>
             <VppZipChecker citySlug={citySlug} />
+          </div>
+        </section>
+
+        {/* Intro */}
+        <section className="border-t border-gray-100 px-4 py-10">
+          <div className="mx-auto max-w-3xl">
+            <p className="text-base leading-relaxed text-gray-700">{buildIntro(c.name)}</p>
           </div>
         </section>
 
@@ -440,16 +432,16 @@ export default async function TexasVppCityPage({
         <section className="bg-[#1e2333] px-4 py-14 text-center text-white">
           <div className="mx-auto max-w-xl">
             <h2 className="text-2xl font-bold sm:text-3xl">
-              Get your free battery in {c.name} today.
+              Have questions about the Texas VPP program?
             </h2>
             <p className="mt-3 text-gray-300">
-              $0 cost · 20-year warranty · No credit check · Keep it forever.
+              Our team is happy to walk you through eligibility, installation, and everything in between.
             </p>
             <Link
-              href={`/contact?product=texas-vpp&state=TX&city=${citySlug}`}
+              href="/contact"
               className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
-              Check My {c.name} VPP Eligibility →
+              Contact Our Team
             </Link>
             <p className="mt-4 text-sm text-gray-400">
               Or call us:{' '}
