@@ -100,7 +100,7 @@ function buildFaq(s: State) {
 const baseProducts = [
   {
     id: 'solar',
-    href: '/contact',
+    href: '/products/solar',
     label: 'Solar Panels',
     description: 'Tier 1 panels from top manufacturers. Sized for your roof and energy usage.',
     icon: (
@@ -111,7 +111,7 @@ const baseProducts = [
   },
   {
     id: 'battery',
-    href: '/contact',
+    href: '/products/battery',
     label: 'Solar Battery',
     description: 'Keep the lights on during outages. Store excess solar for overnight use.',
     icon: (
@@ -122,7 +122,7 @@ const baseProducts = [
   },
   {
     id: 'ev-charger',
-    href: '/contact',
+    href: '/products/ev-charger',
     label: 'EV Charger',
     description: 'Level 2 home EV charging installed by certified electricians.',
     icon: (
