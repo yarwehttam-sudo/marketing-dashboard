@@ -234,6 +234,12 @@ export default function BatteryClient() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
+          <span
+            className="mb-5 inline-block rounded-full px-4 py-1.5 text-xs font-semibold"
+            style={{ background: 'rgba(240,165,0,0.15)', color: '#F0A500' }}
+          >
+            Store Your Power · Skip Tiered Rates
+          </span>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             Home Battery Storage
           </h1>
@@ -241,14 +247,7 @@ export default function BatteryClient() {
             Keep the lights on when the grid goes out. SR Energy installs home batteries that
             charge automatically and switch over in milliseconds — no credit check required.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact"
-              className="rounded-lg bg-[#F0A500] px-8 py-3.5 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
-            >
-              Get a Free Battery Quote
-            </Link>
-          </div>
+          <p className="mt-8 text-sm text-gray-400 tracking-widest uppercase">See how it works below ↓</p>
         </motion.div>
       </section>
 
