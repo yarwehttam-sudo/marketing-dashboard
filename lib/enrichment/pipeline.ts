@@ -1,0 +1,127 @@
+import { firecrawl } from '../firecrawl';
+import { updateSalesCRMLead } from '../notion';
+import { ENRICHMENT_PROMPT } from '../firecrawl-prompts';
+import type { PropertyEnrichment, SalesCRMEnrichmentUpdate } from '../firecrawl.types';
+import {
+  buildZillowSearchUrl,
+  resolveCountyAssessorUrl,
+  resolveUtilityRateUrl,
+} from './utah-lookup';
+
+// NOTE: Firecrawl's extract() endpoint requires URLs — it does not accept raw
+// markdown strings. The scrape step below captures markdown for context, but
+// extract() re-fetches each URL independently. Revisit in Step 9 when we
+// evaluate passing pre-scraped content to avoid duplicate credit spend.
+
+function makeStatusUpdate(
+  status: SalesCRMEnrichmentUpdate['Enrichment Status'],
+  notes?: string,
+): SalesCRMEnrichmentUpdate {
+  return {
+    'Home Value Est': null,
+    'Roof Size Est (sqft)': null,
+    'Year Built': null,
+    'Roof Orientation': null,
+    'Avg Utility Bill Est': null,
+    'Utility Company': null,
+    'Enrichment Status': status,
+    'Enrichment Raw JSON': '',
+    'Enrichment Source URLs': '',
+    ...(notes ? { Notes: notes } : {}),
+  };
+}
+
+export async function enrichLead(
+  leadId: string,
+  address: string,
+  zip: string,
+  state: string,
+): Promise<void> {
+  await updateSalesCRMLead(leadId, makeStatusUpdate('In Progress'));
+
+  if (state !== 'UT' && state.toLowerCase() !== 'utah') {
+    await updateSalesCRMLead(leadId, makeStatusUpdate('Skipped'));
+    return;
+  }
+
+  try {
+    const urlEntries = [
+      { url: resolveCountyAssessorUrl(zip), priority: 0 },
+      { url: buildZillowSearchUrl(address, zip), priority: 1 },
+      { url: resolveUtilityRateUrl(zip), priority: 2 },
+    ].filter((e): e is { url: string; priority: number } => e.url !== null);
+
+    const scrapeResults = await Promise.allSettled(
+      urlEntries.map((e) => firecrawl.scrape(e.url)),
+    );
+
+    const successfulEntries: Array<{ url: string; priority: number }> = [];
+    const markdownParts: string[] = [];
+
+    scrapeResults.forEach((result, i) => {
+      if (result.status === 'fulfilled') {
+        successfulEntries.push(urlEntries[i]);
+        markdownParts.push(`## Source: ${urlEntries[i].url}\n\n${result.value.markdown}`);
+      } else {
+        console.error(`[enrichment] Scrape failed for ${urlEntries[i].url}:`, result.reason);
+      }
+    });
+
+    // Combined markdown is available here for future markdown-based extraction (Step 9)
+    const _combinedMarkdown = markdownParts.join('\n\n---\n\n');
+
+    const extractResults = await Promise.allSettled(
+      successfulEntries.map((e) =>
+        firecrawl.extract<PropertyEnrichment>({
+          url: e.url,
+          schema: ENRICHMENT_PROMPT.schema,
+          prompt: ENRICHMENT_PROMPT.prompt,
+        }),
+      ),
+    );
+
+    // Merge: apply lowest priority (utility) first so highest priority (county) wins
+    const pairs = successfulEntries
+      .map((entry, i) => ({
+        priority: entry.priority,
+        data: extractResults[i].status === 'fulfilled' ? extractResults[i].value : null,
+      }))
+      .sort((a, b) => b.priority - a.priority);
+
+    const merged: PropertyEnrichment = {
+      homeValueEst: null,
+      roofSizeEstSqft: null,
+      yearBuilt: null,
+      roofOrientation: null,
+      avgUtilityBillEst: null,
+      utilityCompany: null,
+      sourceUrls: successfulEntries.map((e) => e.url),
+    };
+
+    for (const { data } of pairs) {
+      if (!data) continue;
+      if (data.homeValueEst !== null) merged.homeValueEst = data.homeValueEst;
+      if (data.roofSizeEstSqft !== null) merged.roofSizeEstSqft = data.roofSizeEstSqft;
+      if (data.yearBuilt !== null) merged.yearBuilt = data.yearBuilt;
+      if (data.roofOrientation !== null) merged.roofOrientation = data.roofOrientation;
+      if (data.avgUtilityBillEst !== null) merged.avgUtilityBillEst = data.avgUtilityBillEst;
+      if (data.utilityCompany !== null) merged.utilityCompany = data.utilityCompany;
+    }
+
+    await updateSalesCRMLead(leadId, {
+      'Home Value Est': merged.homeValueEst,
+      'Roof Size Est (sqft)': merged.roofSizeEstSqft,
+      'Year Built': merged.yearBuilt,
+      'Roof Orientation': merged.roofOrientation,
+      'Avg Utility Bill Est': merged.avgUtilityBillEst,
+      'Utility Company': merged.utilityCompany,
+      'Enrichment Status': 'Complete',
+      'Enrichment Raw JSON': JSON.stringify(merged),
+      'Enrichment Source URLs': successfulEntries.map((e) => e.url).join(', '),
+    });
+  } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    console.error('[enrichment] enrichLead failed:', errorMsg);
+    await updateSalesCRMLead(leadId, makeStatusUpdate('Failed', errorMsg));
+  }
+}

@@ -42,6 +42,7 @@ export interface SalesCRMEnrichmentUpdate {
   'Enrichment Status': 'Pending' | 'In Progress' | 'Complete' | 'Failed' | 'Skipped';
   'Enrichment Raw JSON': string;
   'Enrichment Source URLs': string;
+  Notes?: string;
 }
 
 export interface UtilityRate {

@@ -2,6 +2,17 @@ import { Client } from '@notionhq/client';
 import type { UpdatePageParameters } from '@notionhq/client/build/src/api-endpoints';
 import type { FirecrawlLogEntry, SalesCRMEnrichmentUpdate } from './firecrawl.types';
 
+export interface LeadInput {
+  contactName: string;
+  email: string;
+  phone?: string;
+  address: string;
+  zip: string;
+  state: string;
+  productInterest?: Array<'Solar Panels' | 'Home Battery' | 'EV Charger' | 'Complete Package'>;
+  monthlyElectricBill?: number;
+}
+
 if (!process.env.NOTION_API_KEY) {
   throw new Error('NOTION_API_KEY is not set');
 }
@@ -106,6 +117,11 @@ export async function updateSalesCRMLead(
         rich_text: [{ text: { content: update['Utility Company'] } }],
       };
     }
+    if (update.Notes) {
+      properties['Notes'] = {
+        rich_text: [{ text: { content: update.Notes.slice(0, 2000) } }],
+      };
+    }
 
     const page = await notion.pages.update({ page_id: pageId, properties });
     const pageUrl = `https://notion.so/${page.id.replace(/-/g, '')}`;
@@ -115,4 +131,40 @@ export async function updateSalesCRMLead(
     console.error('[notion] Failed to update Sales CRM lead:', err);
     return null;
   }
+}
+
+export async function createSalesCRMLead(input: LeadInput): Promise<{ pageId: string; pageUrl: string }> {
+  const productOptions = (input.productInterest ?? []).map((name) => ({ name }));
+
+  type NotionProperties = Parameters<typeof notion.pages.create>[0]['properties'];
+  const properties: NotionProperties = {
+    'Contact Name': { title: [{ text: { content: input.contactName } }] },
+    Email: { email: input.email },
+    Phone: { phone_number: input.phone ?? null },
+    Address: { rich_text: [{ text: { content: input.address } }] },
+    'ZIP Code': { rich_text: [{ text: { content: input.zip } }] },
+    State: { rich_text: [{ text: { content: input.state } }] },
+    'Pipeline Stage': { select: { name: 'New Lead' } },
+    'Lead Source': { select: { name: 'Website' } },
+    Priority: { select: { name: 'Warm' } },
+    'Enrichment Status': { select: { name: 'Pending' } },
+    Qualified: { select: { name: 'Pending Review' } },
+  };
+
+  if (input.monthlyElectricBill !== undefined) {
+    properties['Monthly Electric Bill'] = { number: input.monthlyElectricBill };
+  }
+  if (productOptions.length > 0) {
+    properties['Product Interest'] = { multi_select: productOptions };
+  }
+
+  const page = await notion.pages.create({
+    parent: { database_id: SALES_CRM_DATA_SOURCE_ID },
+    properties,
+  });
+
+  const pageId = page.id;
+  const pageUrl = `https://notion.so/${pageId.replace(/-/g, '')}`;
+  console.log(`[notion] Sales CRM lead created: ${pageUrl}`);
+  return { pageId, pageUrl };
 }
