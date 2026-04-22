@@ -1,4 +1,17 @@
 /**
+ * 📋 ARCHIVED DIAGNOSTIC — 2026-04-19
+ *
+ * This script was the Step 6 diagnostic that proved Phase 2 enrichment
+ * does not work. Cost: 18 Firecrawl credits during real test against
+ * Matthew's Utah home address.
+ *
+ * Result: All 3 sources scraped successfully but /extract returned ZERO
+ * usable fields. See docs/decisions/001-enrichment-shelved.md.
+ *
+ * Kept for reference. DO NOT RE-RUN — wastes credits.
+ */
+
+/**
  * Diagnostic script — one-off enrichment pipeline test.
  * Writes NO data to Notion or the Firecrawl Ops DB.
  * Results are saved to diagnostics/enrichment-test-<timestamp>.json (gitignored).
